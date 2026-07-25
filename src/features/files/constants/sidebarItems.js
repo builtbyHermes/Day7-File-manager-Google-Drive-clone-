@@ -1,23 +1,23 @@
 const sidebarItems = [
   {
-    id: "my-files",
-    label: "My Files",
-    icon: "📁",
-  },
-  {
-    id: "favorites",
-    label: "Favorites",
-    icon: "⭐",
+    id: "drive",
+    label: "My Drive",
+    icon: "folder",
   },
   {
     id: "recent",
     label: "Recent",
-    icon: "🕒",
+    icon: "clock",
+  },
+  {
+    id: "starred",
+    label: "Starred",
+    icon: "star",
   },
   {
     id: "trash",
     label: "Trash",
-    icon: "🗑",
+    icon: "trash",
   },
 ];
 
