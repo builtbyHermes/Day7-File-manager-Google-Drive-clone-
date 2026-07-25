@@ -7,6 +7,9 @@ import StatusBar from "../components/StatusBar";
 
 import styles from "./FileManager.module.css";
 
+//inside this we want to track :
+{/*  currnet file opened,paths,
+   */}
 function FileManager() {
   return (
     <div className={styles.container}>
