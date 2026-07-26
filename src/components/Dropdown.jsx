@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import styles from "./Dropdown.module.css";
+// import styles from "./Dropdown.module.css";
 
 function Dropdown({
   trigger,
@@ -31,7 +31,8 @@ function Dropdown({
       );
     };
   }, []);
-
+  
+  //we now have a selection hook
   function handleSelect(item) {
     if (item.disabled) return;
 

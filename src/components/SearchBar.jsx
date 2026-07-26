@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Input from "../Input";
-import Spinner from "../Spinner";
-import styles from "./SearchBar.module.css";
+import Input from "./Input";
+import Spinner from "./Spinner";
+// import styles from "./SearchBar.module.css";
 
 function SearchBar({
   value = "",

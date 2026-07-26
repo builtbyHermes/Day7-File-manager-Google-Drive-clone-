@@ -1,9 +1,9 @@
-import SidebarItem from "../SidebarItem";
-import StorageProgress from "../StorageProgress";
+import SidebarItem from "./SidebarItem";
+import StorageProgress from "./StorageProgress";
 
-import sidebarItems from "../../constants/sidebarItems";
+import sidebarItems from "../../files/constants/sidebarItems";
 
-import styles from "./Sidebar.module.css";
+// import styles from "./Sidebar.module.css";
 
 function Sidebar({
   activeItem = "my-files",

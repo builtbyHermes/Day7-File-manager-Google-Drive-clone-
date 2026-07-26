@@ -1,6 +1,6 @@
 import Modal from "../../../components/Modal";
 
-import styles from "./DeleteDialog.module.css";
+// import styles from "./DeleteDialog.module.css";
 
 function DeleteDialog({
   isOpen,

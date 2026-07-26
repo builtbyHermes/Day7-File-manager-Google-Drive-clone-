@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal";
 
-import styles from "./RenameModal.module.css";
+// import styles from "./RenameModal.module.css";
 
 function RenameModal({
   isOpen,

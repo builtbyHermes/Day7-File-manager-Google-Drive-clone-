@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal";
 
-import styles from "./CreateFolderModal.module.css";
+// import styles from "./CreateFolderModal.module.css";
 
 function CreateFolderModal({
   isOpen,

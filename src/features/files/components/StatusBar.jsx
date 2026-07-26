@@ -1,4 +1,4 @@
-import styles from "./StatusBar.module.css";
+// import styles from "./StatusBar.module.css";
 
 function StatusBar({
   totalItems = 0,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./FolderTreeItem.module.css";
+// import styles from "./FolderTreeItem.module.css";
 
 function FolderTreeItem({
   folder,

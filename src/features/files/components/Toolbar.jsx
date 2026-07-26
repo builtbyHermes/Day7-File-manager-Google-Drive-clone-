@@ -1,7 +1,7 @@
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
 
-import styles from "./Toolbar.module.css";
+// import styles from "./Toolbar.module.css";
 
 const sortOptions = [
   { value: "name", label: "Name" },

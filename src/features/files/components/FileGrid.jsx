@@ -1,5 +1,5 @@
 import FileCard from "../FileCard";
-import styles from "./FileGrid.module.css";
+// import styles from "./FileGrid.module.css";
 
 function FileGrid({
   files = [],

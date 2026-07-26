@@ -1,4 +1,4 @@
-import styles from "./FileRow.module.css";
+// import styles from "./FileRow.module.css";
 
 function FileRow({
   file,

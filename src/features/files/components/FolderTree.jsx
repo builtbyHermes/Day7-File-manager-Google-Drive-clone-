@@ -1,5 +1,5 @@
 import FolderTreeItem from "./FolderTreeItem";
-import styles from "./FolderTree.module.css";
+// import styles from "./FolderTree.module.css";
 
 function FolderTree({
   folders = [],

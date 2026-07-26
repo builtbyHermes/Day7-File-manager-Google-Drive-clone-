@@ -1,6 +1,6 @@
-import FileRow from "../FileRow";
+import FileRow from "./FileRow";
 
-import styles from "./FileList.module.css";
+// import styles from "./FileList.module.css";
 
 function FileList({
   files = [],

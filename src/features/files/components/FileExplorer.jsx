@@ -1,9 +1,9 @@
 import EmptyState from "../../../components/EmptyState";
 
-import FileGrid from "../FileGrid";
-import FileList from "../FileList";
+import FileGrid from "./FileGrid";
+import FileList from "./FileList";
 
-import styles from "./FileExplorer.module.css";
+// import styles from "./FileExplorer.module.css";
 
 function FileExplorer({
   files = [],

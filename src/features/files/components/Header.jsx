@@ -1,5 +1,5 @@
 import SearchBar from "../../../components/SearchBar";
-import styles from "./Header.module.css";
+// import styles from "./Header.module.css";
 
 function Header({
   search,

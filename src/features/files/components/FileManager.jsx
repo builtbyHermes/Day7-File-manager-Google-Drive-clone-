@@ -5,7 +5,6 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import FileExplorer from "../components/FileExplorer";
 import StatusBar from "../components/StatusBar";
 
-import styles from "./FileManager.module.css";
 
 //inside this we want to track :
 {/*  currnet file opened,paths,

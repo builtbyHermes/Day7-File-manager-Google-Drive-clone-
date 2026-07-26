@@ -1,4 +1,4 @@
-import styles from "./SidebarItem.module.css";
+// import styles from "./SidebarItem.module.css";
 
 function SidebarItem({
   icon,

@@ -1,5 +1,5 @@
 import ProgressBar from "../../../components/ProgressBar";
-import styles from "./StorageProgress.module.css";
+// import styles from "./StorageProgress.module.css";
 
 function StorageProgress({
   used = 0,

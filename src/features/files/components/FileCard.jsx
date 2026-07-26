@@ -1,4 +1,4 @@
-import styles from "./FileCard.module.css";
+// import styles from "./FileCard.module.css";
 
 function FileCard({
   file,

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "../../../components/Modal";
 
-import styles from "./UploadModal.module.css";
+// import styles from "./UploadModal.module.css";
 
 function UploadModal({
   isOpen,
