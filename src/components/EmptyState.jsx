@@ -1,5 +1,3 @@
-// import styles from "./EmptyState.module.css";
-
 function EmptyState({
   icon = "📂",
   title = "Nothing here",
@@ -8,37 +6,26 @@ function EmptyState({
   className = "",
   ...props
 }) {
-  const classNames = [
-    styles.container,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <div
-      className={classNames}
+      className={`empty-state ${className}`}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "3rem 1.5rem",
+        textAlign: "center",
+        color: "var(--text-muted)",
+      }}
       {...props}
     >
-      <div className={styles.icon}>
-        {icon}
-      </div>
-
-      <h2 className={styles.title}>
+      <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>{icon}</div>
+      <h2 style={{ fontSize: "1.25rem", color: "var(--text-main)", marginBottom: "0.5rem" }}>
         {title}
       </h2>
-
-      {description && (
-        <p className={styles.description}>
-          {description}
-        </p>
-      )}
-
-      {action && (
-        <div className={styles.action}>
-          {action}
-        </div>
-      )}
+      {description && <p style={{ fontSize: "0.9rem", marginBottom: "1rem" }}>{description}</p>}
+      {action && <div>{action}</div>}
     </div>
   );
 }

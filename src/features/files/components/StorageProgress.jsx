@@ -1,34 +1,18 @@
 import ProgressBar from "../../../components/ProgressBar";
-// import styles from "./StorageProgress.module.css";
 
-function StorageProgress({
-  used = 0,
-  total = 1,
-  className = "",
-  ...props
-}) {
+function StorageProgress({ used = 3.5, total = 15, className = "" }) {
   const percentage = Math.min((used / total) * 100, 100);
 
-  const classNames = [
-    styles.container,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <section
-      className={classNames}
-      {...props}
-    >
-      <h3 className={styles.title}>
+    <section className={`storage-box ${className}`}>
+      <h4 style={{ fontSize: "0.85rem", color: "var(--text-main)", fontWeight: "600" }}>
         Storage
-      </h3>
+      </h4>
 
       <ProgressBar value={percentage} />
 
-      <p className={styles.info}>
-        {used} GB / {total} GB Used
+      <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.25rem" }}>
+        {used} GB of {total} GB used
       </p>
     </section>
   );

@@ -1,48 +1,25 @@
-// import styles from "./Breadcrumbs.module.css";
+import useFileManagerContext from "../context/useFileManagerContext";
 
-function Breadcrumbs({
-  items = [],
-  onNavigate,
-  className = "",
-  ...props
-}) {
-  const classNames = [
-    styles.breadcrumbs,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+function Breadcrumbs() {
+  const { breadcrumbs, openFolder } = useFileManagerContext();
 
   return (
-    <nav
-      className={classNames}
-      aria-label="Breadcrumb"
-      {...props}
-    >
-      {items.map((item, index) => {
-        const isLast = index === items.length - 1;
+    <nav className="breadcrumbs" aria-label="Breadcrumb">
+      {breadcrumbs.map((item, index) => {
+        const isLast = index === breadcrumbs.length - 1;
 
         return (
-          <div
-            key={item.id}
-            className={styles.item}
-          >
+          <div key={item.id} className="breadcrumb-item">
             <button
               type="button"
-              className={`${styles.link} ${
-                isLast ? styles.active : ""
-              }`}
+              className={`breadcrumb-link ${isLast ? "active" : ""}`}
               disabled={isLast}
-              onClick={() => onNavigate?.(item.id)}
+              onClick={() => openFolder(item.id)}
             >
-              {item.label}
+              {item.name}
             </button>
 
-            {!isLast && (
-              <span className={styles.separator}>
-                /
-              </span>
-            )}
+            {!isLast && <span style={{ color: "var(--text-light)" }}>/</span>}
           </div>
         );
       })}
@@ -50,4 +27,4 @@ function Breadcrumbs({
   );
 }
 
-export default Breadcrumbs;s
+export default Breadcrumbs;

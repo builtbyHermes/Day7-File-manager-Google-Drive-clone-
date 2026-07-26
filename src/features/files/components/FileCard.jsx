@@ -1,4 +1,4 @@
-// import styles from "./FileCard.module.css";
+import getFileIcon from "../utils/getFileIcon";
 
 function FileCard({
   file,
@@ -9,19 +9,11 @@ function FileCard({
   className = "",
   ...props
 }) {
-  const classNames = [
-    styles.card,
-    selected && styles.selected,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const icon = file.isFolder ? "📁" : "📄";
+  const icon = getFileIcon(file);
 
   return (
     <div
-      className={classNames}
+      className={`file-card ${selected ? "selected" : ""} ${className}`}
       onClick={() => onClick?.(file)}
       onDoubleClick={() => onDoubleClick?.(file)}
       onContextMenu={(e) => {
@@ -30,16 +22,14 @@ function FileCard({
       }}
       {...props}
     >
-      <div className={styles.icon}>
-        {icon}
-      </div>
+      <div className="file-card-icon">{icon}</div>
 
-      <h3 className={styles.name}>
+      <h3 className="file-card-name" title={file.name}>
         {file.name}
       </h3>
 
-      <div className={styles.meta}>
-        <span>{file.size}</span>
+      <div className="file-card-meta">
+        <span>{file.isFolder ? "Folder" : file.size}</span>
         <span>{file.modified}</span>
       </div>
     </div>

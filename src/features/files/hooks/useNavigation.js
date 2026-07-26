@@ -1,81 +1,28 @@
-import { useState } from "react";
+import { useMemo } from "react";
+import findFolder from "../utils/findFolder";
 
-
-function useNavigation(folders = []) {
-
-  const [currentFolderId, setCurrentFolderId] =
-    useState("root");
-
-
-  function navigateToFolder(folderId) {
-    setCurrentFolderId(folderId);
-  }
-
-
-  function goBack() {
-
-    const currentFolder = folders.find(
-      (folder) => folder.id === currentFolderId
-    );
-
-
-    if (
-      !currentFolder ||
-      !currentFolder.parentId
-    ) {
-      return;
-    }
-
-
-    setCurrentFolderId(
-      currentFolder.parentId
-    );
-
-  }
-
-
-  function getBreadcrumbs() {
-
+function useNavigation(folders = [], currentFolderId = "root", openFolder) {
+  const breadcrumbs = useMemo(() => {
     const path = [];
-
-    let current =
-      folders.find(
-        folder => folder.id === currentFolderId
-      );
-
+    let current = findFolder(folders, currentFolderId);
 
     while (current) {
+      path.unshift({
+        id: current.id,
+        name: current.name,
+      });
 
-      path.unshift(current);
-
-
-      current =
-        folders.find(
-          folder =>
-            folder.id === current.parentId
-        );
-
+      if (!current.parentId) break;
+      current = findFolder(folders, current.parentId);
     }
 
-
     return path;
-
-  }
-
+  }, [folders, currentFolderId]);
 
   return {
-
-    currentFolderId,
-
-    navigateToFolder,
-
-    goBack,
-
-    breadcrumbs: getBreadcrumbs(),
-
+    breadcrumbs,
+    navigateToFolder: openFolder,
   };
-
 }
-
 
 export default useNavigation;

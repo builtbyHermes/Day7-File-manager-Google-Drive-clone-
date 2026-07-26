@@ -1,4 +1,3 @@
-// import styles from "./Button.module.css";
 import Spinner from "./Spinner";
 
 function Button({
@@ -16,10 +15,10 @@ function Button({
   ...props
 }) {
   const classNames = [
-    styles.button,
-    styles[variant] || styles.primary,
-    styles[size] || styles.md,
-    fullWidth && styles.fullWidth,
+    "btn",
+    `btn-${variant}`,
+    `btn-${size}`,
+    fullWidth ? "full-width" : "",
     className,
   ]
     .filter(Boolean)
@@ -34,9 +33,7 @@ function Button({
       onClick={onClick}
       {...props}
     >
-      {!loading && leftIcon && (
-        <span className={styles.leftIcon}>{leftIcon}</span>
-      )}
+      {!loading && leftIcon && <span className="btn-icon-left">{leftIcon}</span>}
 
       {loading ? (
         <>
@@ -47,9 +44,7 @@ function Button({
         <span>{children}</span>
       )}
 
-      {!loading && rightIcon && (
-        <span className={styles.rightIcon}>{rightIcon}</span>
-      )}
+      {!loading && rightIcon && <span className="btn-icon-right">{rightIcon}</span>}
     </button>
   );
 }

@@ -1,67 +1,82 @@
 import { useState, useRef, useEffect } from "react";
-// import styles from "./Dropdown.module.css";
 
 function Dropdown({
   trigger,
   items = [],
+  options = [],
   onSelect,
+  onChange,
+  value,
   className = "",
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
-
   const dropdownRef = useRef(null);
+
+  const dropdownItems = items.length > 0 ? items : options;
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     }
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleClickOutside
-      );
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
-  //we now have a selection hook
+
   function handleSelect(item) {
     if (item.disabled) return;
+    const selectedVal = item.value || item.id;
 
-    onSelect?.(item);
+    if (onSelect) onSelect(item);
+    if (onChange) onChange(selectedVal);
 
     setIsOpen(false);
   }
 
+  const selectedItem = dropdownItems.find(
+    (item) => (item.value || item.id) === value
+  );
+
   return (
     <div
-      className={`${styles.container} ${className}`}
+      className={`dropdown-container ${className}`}
       ref={dropdownRef}
+      style={{ position: "relative", display: "inline-block" }}
       {...props}
     >
       <div
-        className={styles.trigger}
+        className="dropdown-trigger"
         onClick={() => setIsOpen((prev) => !prev)}
+        style={{ cursor: "pointer" }}
       >
-        {trigger}
+        {trigger ? (
+          trigger
+        ) : (
+          <button className="btn btn-secondary">
+            {selectedItem ? selectedItem.label : "Sort by"} ▼
+          </button>
+        )}
       </div>
 
       {isOpen && (
-        <div className={styles.menu}>
-          {items.map((item) => (
+        <div
+          className="context-menu"
+          style={{
+            position: "absolute",
+            top: "100%",
+            right: 0,
+            marginTop: "0.25rem",
+          }}
+        >
+          {dropdownItems.map((item) => (
             <button
-              key={item.value}
-              className={`${styles.item} ${
-                item.disabled ? styles.disabled : ""
-              }`}
+              key={item.value || item.id}
+              className="context-menu-item"
               onClick={() => handleSelect(item)}
               disabled={item.disabled}
               type="button"

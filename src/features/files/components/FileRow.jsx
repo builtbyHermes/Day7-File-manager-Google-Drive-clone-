@@ -1,4 +1,4 @@
-// import styles from "./FileRow.module.css";
+import getFileIcon from "../utils/getFileIcon";
 
 function FileRow({
   file,
@@ -9,19 +9,11 @@ function FileRow({
   className = "",
   ...props
 }) {
-  const classNames = [
-    styles.row,
-    selected && styles.selected,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const icon = file.isFolder ? "📁" : "📄";
+  const icon = getFileIcon(file);
 
   return (
     <div
-      className={classNames}
+      className={`file-row ${selected ? "selected" : ""} ${className}`}
       onClick={() => onClick?.(file)}
       onDoubleClick={() => onDoubleClick?.(file)}
       onContextMenu={(e) => {
@@ -30,20 +22,20 @@ function FileRow({
       }}
       {...props}
     >
-      <div className={styles.name}>
-        <span className={styles.icon}>{icon}</span>
+      <div className="file-row-name">
+        <span className="file-row-icon">{icon}</span>
         <span>{file.name}</span>
       </div>
 
-      <div className={styles.type}>
-        {file.isFolder ? "Folder" : file.type}
+      <div className="file-row-meta">
+        {file.isFolder ? "Folder" : file.type ? file.type.toUpperCase() : "File"}
       </div>
 
-      <div className={styles.size}>
+      <div className="file-row-meta">
         {file.isFolder ? "--" : file.size}
       </div>
 
-      <div className={styles.modified}>
+      <div className="file-row-meta">
         {file.modified}
       </div>
     </div>

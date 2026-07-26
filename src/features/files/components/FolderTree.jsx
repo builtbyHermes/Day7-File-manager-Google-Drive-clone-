@@ -1,5 +1,4 @@
 import FolderTreeItem from "./FolderTreeItem";
-// import styles from "./FolderTree.module.css";
 
 function FolderTree({
   folders = [],
@@ -8,18 +7,8 @@ function FolderTree({
   className = "",
   ...props
 }) {
-  const classNames = [
-    styles.tree,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div
-      className={classNames}
-      {...props}
-    >
+    <div className={`folder-tree ${className}`} {...props}>
       {folders.map((folder) => (
         <FolderTreeItem
           key={folder.id}

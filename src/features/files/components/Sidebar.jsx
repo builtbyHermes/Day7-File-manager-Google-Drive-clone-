@@ -1,32 +1,56 @@
 import SidebarItem from "./SidebarItem";
 import StorageProgress from "./StorageProgress";
+import FolderTree from "./FolderTree";
+import sidebarItems from "../constants/sidebarItems";
+import useFileManagerContext from "../context/useFileManagerContext";
 
-import sidebarItems from "../../files/constants/sidebarItems";
+function Sidebar() {
+  const {
+    activeTab,
+    setActiveTab,
+    folders,
+    currentFolderId,
+    openFolder,
+    openCreateFolderModal,
+  } = useFileManagerContext();
 
-// import styles from "./Sidebar.module.css";
-
-function Sidebar({
-  activeItem = "my-files",
-  onSelect,
-}) {
   return (
-    <aside className={styles.sidebar}>
-      <nav className={styles.navigation}>
-        {sidebarItems.map((item) => (
-          <SidebarItem
-            key={item.id}
-            icon={item.icon}
-            label={item.label}
-            active={activeItem === item.id}
-            onClick={() => onSelect?.(item.id)}
-          />
-        ))}
-      </nav>
+    <aside className="app-sidebar">
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <button className="btn btn-primary" onClick={openCreateFolderModal} style={{ width: "100%", padding: "0.75rem" }}>
+          + New Folder
+        </button>
 
-      <StorageProgress
-        used={35}
-        total={50}
-      />
+        <nav className="sidebar-nav">
+          {sidebarItems.map((item) => (
+            <SidebarItem
+              key={item.id}
+              icon={item.icon === "folder" ? "📁" : item.icon === "clock" ? "🕒" : item.icon === "star" ? "⭐" : "🗑️"}
+              label={item.label}
+              active={activeTab === item.id}
+              onClick={() => {
+                setActiveTab(item.id);
+                if (item.id === "drive") {
+                  openFolder("root");
+                }
+              }}
+            />
+          ))}
+        </nav>
+
+        <div style={{ marginTop: "1rem" }}>
+          <h4 style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "0.5rem", paddingLeft: "0.5rem" }}>
+            FOLDERS
+          </h4>
+          <FolderTree
+            folders={folders}
+            selectedId={currentFolderId}
+            onSelect={(folder) => openFolder(folder.id)}
+          />
+        </div>
+      </div>
+
+      <StorageProgress used={3.5} total={15} />
     </aside>
   );
 }

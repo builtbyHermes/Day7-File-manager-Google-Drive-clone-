@@ -1,13 +1,7 @@
 import { useState } from "react";
 import Modal from "../../../components/Modal";
 
-// import styles from "./UploadModal.module.css";
-
-function UploadModal({
-  isOpen,
-  onClose,
-  onUpload,
-}) {
+function UploadModal({ isOpen, onClose, onUpload }) {
   const [files, setFiles] = useState([]);
 
   function handleChange(event) {
@@ -17,52 +11,56 @@ function UploadModal({
 
   function handleUpload() {
     onUpload?.(files);
-
     setFiles([]);
-
     onClose?.();
   }
 
   function handleClose() {
     setFiles([]);
-
     onClose?.();
   }
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={handleClose}
-    >
-      <div className={styles.container}>
-        <h2>Upload Files</h2>
+    <Modal isOpen={isOpen} onClose={handleClose}>
+      <div>
+        <h2 className="modal-header">Upload Files</h2>
 
         <input
           type="file"
           multiple
+          className="input-field"
           onChange={handleChange}
+          style={{ marginBottom: "1rem" }}
         />
 
-        <div className={styles.fileList}>
+        <div
+          style={{
+            maxHeight: "150px",
+            overflowY: "auto",
+            padding: "0.5rem",
+            backgroundColor: "var(--bg-main)",
+            borderRadius: "6px",
+            fontSize: "0.85rem",
+          }}
+        >
           {files.length === 0 ? (
-            <p>No files selected.</p>
+            <p style={{ color: "var(--text-muted)", textAlign: "center" }}>No files selected.</p>
           ) : (
-            <ul>
+            <ul style={{ paddingLeft: "1.2rem", color: "var(--text-main)" }}>
               {files.map((file) => (
-                <li key={file.name}>
-                  {file.name}
-                </li>
+                <li key={file.name}>{file.name}</li>
               ))}
             </ul>
           )}
         </div>
 
-        <div className={styles.actions}>
-          <button onClick={handleClose}>
+        <div className="modal-actions">
+          <button className="btn btn-secondary" onClick={handleClose}>
             Cancel
           </button>
 
           <button
+            className="btn btn-primary"
             onClick={handleUpload}
             disabled={files.length === 0}
           >

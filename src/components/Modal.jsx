@@ -1,6 +1,5 @@
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
-// import styles from "./Modal.module.css";
 
 function Modal({ children, isOpen, onClose }) {
   useEffect(() => {
@@ -10,7 +9,7 @@ function Modal({ children, isOpen, onClose }) {
 
     function handleEsc(event) {
       if (event.key === "Escape") {
-        onClose();
+        onClose?.();
       }
     }
 
@@ -25,12 +24,9 @@ function Modal({ children, isOpen, onClose }) {
   if (!isOpen) return null;
 
   return createPortal(
-    <div
-      className={styles.overlay}
-      onClick={onClose}
-    >
+    <div className="modal-overlay" onClick={onClose}>
       <div
-        className={styles.modal}
+        className="modal-content"
         role="dialog"
         aria-modal="true"
         onClick={(e) => e.stopPropagation()}

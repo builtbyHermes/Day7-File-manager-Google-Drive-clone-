@@ -1,5 +1,4 @@
 import { forwardRef, useId } from "react";
-// import styles from "./Input.module.css";
 
 const Input = forwardRef(function Input(
   {
@@ -24,35 +23,17 @@ const Input = forwardRef(function Input(
   const generatedId = useId();
   const inputId = id || generatedId;
 
-  const classNames = [
-    styles.input,
-    error && styles.error,
-    fullWidth && styles.fullWidth,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div className={styles.container}>
+    <div className={`input-container ${fullWidth ? "full-width" : ""}`}>
       {label && (
-        <label
-          htmlFor={inputId}
-          className={styles.label}
-        >
-          {label}
-
-          {required && (
-            <span className={styles.required}>
-              *
-            </span>
-          )}
+        <label htmlFor={inputId} className="input-label">
+          {label} {required && <span style={{ color: "red" }}>*</span>}
         </label>
       )}
 
-      <div className={styles.inputWrapper}>
+      <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
         {leftIcon && (
-          <span className={styles.leftIcon}>
+          <span style={{ position: "absolute", left: "10px", color: "var(--text-muted)" }}>
             {leftIcon}
           </span>
         )}
@@ -60,44 +41,32 @@ const Input = forwardRef(function Input(
         <input
           ref={ref}
           id={inputId}
-          className={classNames}
+          className={`input-field ${className}`}
+          style={{
+            paddingLeft: leftIcon ? "2.25rem" : "0.75rem",
+            paddingRight: rightIcon ? "2.25rem" : "0.75rem",
+          }}
           type={type}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
           disabled={disabled}
           required={required}
-          aria-invalid={!!error}
-          aria-describedby={
-            error
-              ? `${inputId}-error`
-              : helperText
-              ? `${inputId}-helper`
-              : undefined
-          }
           {...props}
         />
 
         {rightIcon && (
-          <span className={styles.rightIcon}>
+          <span style={{ position: "absolute", right: "10px", color: "var(--text-muted)" }}>
             {rightIcon}
           </span>
         )}
       </div>
 
       {error ? (
-        <p
-          id={`${inputId}-error`}
-          className={styles.errorText}
-        >
-          {error}
-        </p>
+        <p style={{ color: "#ef4444", fontSize: "0.8rem", marginTop: "0.25rem" }}>{error}</p>
       ) : (
         helperText && (
-          <p
-            id={`${inputId}-helper`}
-            className={styles.helperText}
-          >
+          <p style={{ color: "var(--text-muted)", fontSize: "0.8rem", marginTop: "0.25rem" }}>
             {helperText}
           </p>
         )

@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal";
 
-// import styles from "./RenameModal.module.css";
-
-function RenameModal({
-  isOpen,
-  file,
-  onClose,
-  onRename,
-}) {
+function RenameModal({ isOpen, file, onClose, onRename }) {
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -19,59 +12,47 @@ function RenameModal({
 
   function handleSubmit(e) {
     e.preventDefault();
-
     const trimmedName = name.trim();
-
     if (!trimmedName) return;
 
     onRename?.(file, trimmedName);
-
     onClose?.();
   }
 
   function handleClose() {
     setName("");
-
     onClose?.();
   }
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={handleClose}
-    >
-      <form
-        className={styles.container}
-        onSubmit={handleSubmit}
-      >
-        <h2>Rename</h2>
+    <Modal isOpen={isOpen} onClose={handleClose}>
+      <form onSubmit={handleSubmit}>
+        <h2 className="modal-header">Rename Item</h2>
 
-        <label htmlFor="rename-input">
-          New Name
-        </label>
-
-        <input
-          id="rename-input"
-          type="text"
-          value={name}
-          onChange={(e) =>
-            setName(e.target.value)
-          }
-          autoFocus
-        />
-
-        <div className={styles.actions}>
-          <button
-            type="button"
-            onClick={handleClose}
+        <div style={{ marginBottom: "1rem" }}>
+          <label
+            htmlFor="rename-input"
+            style={{ display: "block", fontSize: "0.875rem", marginBottom: "0.5rem", color: "var(--text-muted)" }}
           >
+            New Name
+          </label>
+
+          <input
+            id="rename-input"
+            className="input-field"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoFocus
+          />
+        </div>
+
+        <div className="modal-actions">
+          <button type="button" className="btn btn-secondary" onClick={handleClose}>
             Cancel
           </button>
 
-          <button
-            type="submit"
-            disabled={!name.trim()}
-          >
+          <button type="submit" className="btn btn-primary" disabled={!name.trim()}>
             Rename
           </button>
         </div>

@@ -1,31 +1,22 @@
-import FileCard from "../FileCard";
-// import styles from "./FileGrid.module.css";
+import FileCard from "./FileCard";
 
 function FileGrid({
   files = [],
+  selectedItems = [],
   onOpen,
   onSelect,
-  className = "",
-  ...props
+  onContextMenu,
 }) {
-  const classNames = [
-    styles.grid,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div
-      className={classNames}
-      {...props}
-    >
+    <div className="file-grid">
       {files.map((file) => (
         <FileCard
           key={file.id}
           file={file}
-          onOpen={() => onOpen?.(file)}
-          onSelect={() => onSelect?.(file)}
+          selected={selectedItems.includes(file.id)}
+          onClick={() => onSelect?.(file)}
+          onDoubleClick={() => onOpen?.(file)}
+          onContextMenu={(e) => onContextMenu?.(e, file)}
         />
       ))}
     </div>

@@ -1,56 +1,51 @@
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
+import sortOptions from "../constants/sortOptions";
+import useFileManagerContext from "../context/useFileManagerContext";
 
-// import styles from "./Toolbar.module.css";
+function Toolbar() {
+  const {
+    viewMode,
+    setViewMode,
+    sortOption,
+    setSortOption,
+    openUploadModal,
+    openCreateFolderModal,
+  } = useFileManagerContext();
 
-const sortOptions = [
-  { value: "name", label: "Name" },
-  { value: "date", label: "Date" },
-  { value: "size", label: "Size" },
-];
-
-function Toolbar({
-  view = "grid",
-  sort = "name",
-  onUpload,
-  onCreateFolder,
-  onViewChange,
-  onSortChange,
-}) {
   return (
-    <div className={styles.toolbar}>
-      <div className={styles.left}>
-        <Button onClick={onUpload}>
-          Upload
+    <div className="toolbar">
+      <div className="toolbar-left">
+        <Button onClick={openUploadModal} variant="primary">
+          📤 Upload Files
         </Button>
 
-        <Button
-          variant="secondary"
-          onClick={onCreateFolder}
-        >
-          New Folder
+        <Button variant="secondary" onClick={openCreateFolderModal}>
+          📁 New Folder
         </Button>
       </div>
 
-      <div className={styles.right}>
+      <div className="toolbar-right">
         <Button
-          variant={view === "grid" ? "primary" : "secondary"}
-          onClick={() => onViewChange?.("grid")}
+          variant={viewMode === "grid" ? "primary" : "secondary"}
+          onClick={() => setViewMode("grid")}
+          title="Grid View"
         >
-          Grid
+          田 Grid
         </Button>
 
         <Button
-          variant={view === "list" ? "primary" : "secondary"}
-          onClick={() => onViewChange?.("list")}
+          variant={viewMode === "list" ? "primary" : "secondary"}
+          onClick={() => setViewMode("list")}
+          title="List View"
         >
-          List
+          ☰ List
         </Button>
 
         <Dropdown
           options={sortOptions}
-          value={sort}
-          onChange={onSortChange}
+          value={sortOption}
+          onChange={(val) => setSortOption(val)}
         />
       </div>
     </div>

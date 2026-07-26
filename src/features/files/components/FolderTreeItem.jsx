@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import styles from "./FolderTreeItem.module.css";
 
 function FolderTreeItem({
   folder,
@@ -9,12 +8,10 @@ function FolderTreeItem({
 }) {
   const [expanded, setExpanded] = useState(true);
 
-  const hasChildren =
-    folder.children && folder.children.length > 0;
+  const hasChildren = folder.children && folder.children.length > 0;
 
   function handleToggle(e) {
     e.stopPropagation();
-
     if (hasChildren) {
       setExpanded((prev) => !prev);
     }
@@ -24,28 +21,37 @@ function FolderTreeItem({
     onSelect?.(folder);
   }
 
+  const isSelected = selectedId === folder.id;
+
   return (
     <div>
       <div
-        className={`${styles.item} ${
-          selectedId === folder.id ? styles.selected : ""
-        }`}
+        className={`sidebar-item ${isSelected ? "active" : ""}`}
         style={{
-          paddingLeft: `${level * 20 + 12}px`,
+          paddingLeft: `${level * 12 + 8}px`,
+          fontSize: "0.85rem",
+          paddingTop: "0.4rem",
+          paddingBottom: "0.4rem",
         }}
         onClick={handleSelect}
       >
         <button
           type="button"
-          className={styles.toggle}
           onClick={handleToggle}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            width: "16px",
+            fontSize: "0.75rem",
+            color: "var(--text-muted)",
+          }}
         >
           {hasChildren ? (expanded ? "▼" : "▶") : ""}
         </button>
 
-        <span className={styles.icon}>📁</span>
-
-        <span className={styles.label}>
+        <span>📁</span>
+        <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
           {folder.name}
         </span>
       </div>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Input from "./Input";
 import Spinner from "./Spinner";
-// import styles from "./SearchBar.module.css";
 
 function SearchBar({
   value = "",
@@ -16,12 +15,10 @@ function SearchBar({
 }) {
   const [inputValue, setInputValue] = useState(value);
 
-  // Keep local state synchronized with parent state
   useEffect(() => {
     setInputValue(value);
   }, [value]);
 
-  // Debounce the search callback
   useEffect(() => {
     if (debounce <= 0) return;
 
@@ -34,10 +31,8 @@ function SearchBar({
 
   function handleChange(e) {
     const newValue = e.target.value;
-
     setInputValue(newValue);
 
-    // No debounce -> update parent immediately
     if (debounce <= 0) {
       onChange?.(newValue);
     }
@@ -50,7 +45,7 @@ function SearchBar({
   }
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div className={`search-bar ${className}`}>
       <Input
         type="search"
         value={inputValue}
@@ -58,19 +53,13 @@ function SearchBar({
         placeholder={placeholder}
         disabled={disabled}
         fullWidth
-        leftIcon={
-          loading ? (
-            <Spinner size="sm" />
-          ) : (
-            <span className={styles.icon}>🔍</span>
-          )
-        }
+        leftIcon={loading ? <Spinner size="sm" /> : <span>🔍</span>}
         rightIcon={
           inputValue && (
             <button
               type="button"
-              className={styles.clearButton}
               onClick={handleClear}
+              style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}
               aria-label="Clear search"
             >
               ✕

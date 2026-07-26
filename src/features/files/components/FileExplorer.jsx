@@ -1,36 +1,66 @@
 import EmptyState from "../../../components/EmptyState";
-
 import FileGrid from "./FileGrid";
 import FileList from "./FileList";
+import useFileManagerContext from "../context/useFileManagerContext";
+import sortFiles from "../utils/sortFiles";
 
-// import styles from "./FileExplorer.module.css";
+function FileExplorer() {
+  const {
+    searchResults,
+    viewMode,
+    sortOption,
+    openFolder,
+    selectedItems,
+    toggleSelection,
+    openContextMenu,
+    openCreateFolderModal,
+  } = useFileManagerContext();
 
-function FileExplorer({
-  files = [],
-  view = "grid",
-  ...props
-}) {
-  if (files.length === 0) {
+  const sortedFiles = sortFiles(searchResults, sortOption);
+
+  if (sortedFiles.length === 0) {
     return (
-      <div className={styles.container}>
+      <div className="explorer-container">
         <EmptyState
           icon="📂"
           title="Folder is empty"
-          description="Upload your first file."
+          description="Upload your first file or create a new folder."
+          action={
+            <button className="btn btn-primary" onClick={openCreateFolderModal}>
+              Create Folder
+            </button>
+          }
         />
       </div>
     );
   }
 
   return (
-    <div
-      className={styles.container}
-      {...props}
-    >
-      {view === "grid" ? (
-        <FileGrid files={files} />
+    <div className="explorer-container">
+      {viewMode === "grid" ? (
+        <FileGrid
+          files={sortedFiles}
+          selectedItems={selectedItems}
+          onOpen={(item) => {
+            if (item.isFolder) {
+              openFolder(item.id);
+            }
+          }}
+          onSelect={(item) => toggleSelection(item.id)}
+          onContextMenu={(e, item) => openContextMenu(e, item)}
+        />
       ) : (
-        <FileList files={files} />
+        <FileList
+          files={sortedFiles}
+          selectedItems={selectedItems}
+          onOpen={(item) => {
+            if (item.isFolder) {
+              openFolder(item.id);
+            }
+          }}
+          onSelect={(item) => toggleSelection(item.id)}
+          onContextMenu={(e, item) => openContextMenu(e, item)}
+        />
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import FileManagerPage from "../features/files/pages/FileManagerPage";
+import FileManagerPage from "../features/files/pages/FileManager";
 
 function AppRoutes() {
   return (

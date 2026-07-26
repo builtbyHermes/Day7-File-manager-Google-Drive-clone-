@@ -1,36 +1,32 @@
 import FileRow from "./FileRow";
 
-// import styles from "./FileList.module.css";
-
 function FileList({
   files = [],
-  selectedFiles = [],
+  selectedItems = [],
   onOpen,
   onSelect,
   onContextMenu,
-  className = "",
-  ...props
 }) {
-  const classNames = [
-    styles.list,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div
-      className={classNames}
-      {...props}
-    >
+    <div className="file-list">
+      <div
+        className="file-row"
+        style={{ fontWeight: "bold", backgroundColor: "var(--bg-sidebar)", color: "var(--text-muted)" }}
+      >
+        <div>Name</div>
+        <div>Type</div>
+        <div>Size</div>
+        <div>Modified</div>
+      </div>
+
       {files.map((file) => (
         <FileRow
           key={file.id}
           file={file}
-          selected={selectedFiles.includes(file.id)}
+          selected={selectedItems.includes(file.id)}
           onClick={() => onSelect?.(file)}
           onDoubleClick={() => onOpen?.(file)}
-          onContextMenu={onContextMenu}
+          onContextMenu={(e) => onContextMenu?.(e, file)}
         />
       ))}
     </div>

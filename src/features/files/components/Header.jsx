@@ -1,50 +1,53 @@
 import SearchBar from "../../../components/SearchBar";
-// import styles from "./Header.module.css";
+import useFileManagerContext from "../context/useFileManagerContext";
 
-function Header({
-  search,
-  onSearchChange,
-}) {
+function Header() {
+  const { searchQuery, setSearchQuery } = useFileManagerContext();
+
   return (
-    <header className={styles.header}>
-
+    <header className="app-header">
       {/* Left Section */}
-      <div className={styles.logo}>
-        FileManager
+      <div className="app-logo">
+        <span style={{ fontSize: "1.5rem" }}>📁</span> Google Drive
       </div>
 
-
       {/* Center Section */}
-      <div className={styles.search}>
+      <div className="search-container">
         <SearchBar
-          value={search}
-          onChange={onSearchChange}
-          placeholder="Search files..."
+          value={searchQuery}
+          onChange={(val) => setSearchQuery(val)}
+          placeholder="Search in Drive..."
         />
       </div>
 
-
       {/* Right Section */}
-      <div className={styles.actions}>
-
-        <button className={styles.actionButton}>
+      <div className="header-actions">
+        <button className="btn btn-secondary" title="Refresh" onClick={() => window.location.reload()}>
           🔄
         </button>
-
-        <button className={styles.actionButton}>
+        <button className="btn btn-secondary" title="Settings">
           ⚙️
         </button>
-
-        <button className={styles.actionButton}>
+        <button className="btn btn-secondary" title="Notifications">
           🔔
         </button>
-
-        <button className={styles.profile}>
-          👤
-        </button>
-
+        <div
+          style={{
+            width: "36px",
+            height: "36px",
+            borderRadius: "50%",
+            backgroundColor: "var(--primary)",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          U
+        </div>
       </div>
-
     </header>
   );
 }
